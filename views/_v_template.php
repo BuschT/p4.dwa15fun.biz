@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>BlogTastic!</title>
+	<title>QuizTastic!</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -33,9 +33,9 @@
 	  </div>
 	  <div class="content_options">
 	  	<ul class="nav nav-pills">
-	  		<li id="nav_posts"><a href="/posts">Take Quiz</a></li>
-	  		<li id="nav_posts_add"><a href="/posts/add">Add Quiz</a></li>
-	  		<li id="nav_posts_users"><a href="/posts/users">Get Score</a></li>
+	  		<li id="nav_posts"><a href="/quizes">Take Quiz</a></li>
+	  		<li id="nav_posts_add"><a href="/quizes/add">Add Quiz</a></li>
+	  		<li id="nav_posts_users"><a href="/quizes/myquizes">Get Score</a></li>
 	  	</ul>
 	  </div>
 	  <div class="jumbotron">
