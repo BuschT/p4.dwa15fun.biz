@@ -10,9 +10,30 @@ class quizes_controller extends base_controller {
 		}
 	}
 
-	public function score($quizid){
+	public function score($quiznumber){
 		$this->template->content = View::instance('v_quizes_score');
 		$this->template->title   = "View Quiz Score";
+
+		$query = "Select * from users_quizes_questions_answers WHERE user_id ='".$this->user->user_id."' AND quiz_number = '".$quiznumber."'";
+		$quizquestions = DB::instance(DB_NAME)->select_rows($query);
+
+		$quizquestionscount = count($quizquestions);
+		$numcorrect = 0;
+		$numincorrect = 0;
+
+		foreach($quizquestions as $question){
+			$queryquestioninfo = "Select correct_answer FROM questions WHERE question_no = '".$question['question_number']."'";
+			$correctanswer = DB::instance(DB_NAME)->select_field($queryquestioninfo);
+			if ($question['user_answer'] != $correctanswer){
+				$numincorrect = $numincorrect+1;
+			} else {
+				$numcorrect = $numcorrect+1;
+			}
+		}
+
+		$this->template->content->numcorrect = $numcorrect;
+		$this->template->content->numincorrect = $numincorrect;
+
 		# Render template
 		echo $this->template;
 	}
@@ -21,6 +42,13 @@ class quizes_controller extends base_controller {
 		# Setup view
 		$this->template->content = View::instance('v_quizes_take');
 		$this->template->title   = "View Quiz";
+
+		# See if they've already taken this quize
+		$checkquizhistoryquery = "SELECT * FROM users_quizes_questions_answers WHERE user_id = '".$this->user->user_id."' AND quiz_number = '".$quizid."'";
+		$quizcheck = DB::instance(DB_NAME)->select_rows($checkquizhistoryquery);
+		if (count($quizcheck) > 0){
+			$this->template->content->error = "You've already taken this quiz. You cannot take it again. Check your score: <a href='/quizes/score/".$quizid."'>here</a>";
+		}
 
 		$quizquery = "Select * from quizes WHERE quiz_number = '".$quizid."'";
 		# Run the query, store the results in the variable $posts
