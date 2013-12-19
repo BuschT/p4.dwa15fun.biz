@@ -1,0 +1,1 @@
+echo "Score page";

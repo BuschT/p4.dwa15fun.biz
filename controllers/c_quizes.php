@@ -10,6 +10,13 @@ class quizes_controller extends base_controller {
 		}
 	}
 
+	public function score($quizid){
+		$this->template->content = View::instance('v_quizes_score');
+		$this->template->title   = "View Quiz Score";
+		# Render template
+		echo $this->template;
+	}
+
 	public function take($quizid){
 		# Setup view
 		$this->template->content = View::instance('v_quizes_take');
@@ -50,6 +57,32 @@ class quizes_controller extends base_controller {
 		echo $this->template;
 
 	}
+
+	public function p_register_quiz(){
+
+		#echo $this->user->user_id;
+		if (trim($_POST['quiz_number']) == false || $_POST['quiz_questions_count'] < 1){
+			echo "Problem...";
+			#Router::redirect("/quizes/take/error");
+		}
+
+		#echo $_POST['quiz_questions_count'];
+
+		for ($x=1; $x<=$_POST['quiz_questions_count']; $x++){
+			#echo $this->user->user_id." and ".$_POST['user_answer'.$x];
+			#$newquiz = Array('quiz_name' => $_POST['newquiz_name']);
+			#DB::instance(DB_NAME)->insert('quizes', $newquiz);
+			$quizuserquestionanswer = Array(
+							'user_id' => $this->user->user_id,
+							'quiz_number' => $_POST['quiz_number'],
+							'question_number' => $_POST['question_number'],
+							'user_answer' => $_POST['user_answer'.$x]);
+			DB::instance(DB_NAME)->insert('users_quizes_questions_answers', $quizuserquestionanswer);
+		}
+		Router::redirect("/quizes/score/".$_POST['quiz_number']);
+	}
+
+
 
 	public function p_add() {
 
