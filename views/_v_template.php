@@ -10,6 +10,9 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="/css/jumbotron-narrow.css" rel="stylesheet">
 
+    <script src="https://code.jquery.com/jquery.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+
 	<!-- Controller Specific JS/CSS -->
 	<?php if(isset($client_files_head)) echo $client_files_head; ?>
 
@@ -33,9 +36,9 @@
 	  </div>
 	  <div class="content_options">
 	  	<ul class="nav nav-pills">
-	  		<li id="nav_posts"><a href="/quizes">Take Quiz</a></li>
-	  		<li id="nav_posts_add"><a href="/quizes/add">Add Quiz</a></li>
-	  		<li id="nav_posts_users"><a href="/quizes/myquizes">Get Score</a></li>
+	  		<li id="nav_posts"><a href="/quizes">Available Quizes</a></li>
+	  		<li id="nav_posts_add"><a href="/quizes/add">Add A New Quiz</a></li>
+	  		<li id="nav_posts_users"><a href="/quizes/myquizes">My Quiz History</a></li>
 	  	</ul>
 	  </div>
 	  <div class="jumbotron">
@@ -55,9 +58,6 @@
 
 	<?php if(isset($client_files_body)) echo $client_files_body; ?>
 
-	<!-- placed at end of file so code page loads faster -->
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -38,6 +38,32 @@ class quizes_controller extends base_controller {
 		echo $this->template;
 	}
 
+	public function myquizes(){
+
+		$this->template->content = View::instance('v_quizes_report');
+		$this->template->title   = "Quiz History";
+
+		$checkquizhistoryquery = "SELECT DISTINCT user_id, quiz_number FROM users_quizes_questions_answers WHERE user_id = '".$this->user->user_id."'";
+		$quizcheck = DB::instance(DB_NAME)->select_rows($checkquizhistoryquery);
+
+		$takenquizesarray = array();
+
+		foreach($quizcheck as $quiztaken){
+			$getquizinfoquery = "SELECT quiz_name from quizes WHERE quiz_number = '".$quiztaken['quiz_number']."'";
+			$quizname = DB::instance(DB_NAME)->select_field($getquizinfoquery);
+			$tmp = Array(
+				'quiz_name' => $quizname,
+				'quiz_number' => $quiztaken['quiz_number']);
+
+			array_push($takenquizesarray, $tmp);
+		}
+		$this->template->content->takenquizes = $takenquizesarray;
+
+		# Render template
+		echo $this->template;
+
+	}
+
 	public function take($quizid){
 		# Setup view
 		$this->template->content = View::instance('v_quizes_take');
@@ -131,35 +157,32 @@ class quizes_controller extends base_controller {
 		DB::instance(DB_NAME)->insert('quizes', $newquiz);
 
 		#Add all the questions to the questions table
-		for ($x=1; $x<=10; $x++){
-			if (array_key_exists('newquiz_question'.$x, $_POST)){
-				$question = Array(
-					'question_content' => $_POST['newquiz_question'.$x],
-					'answer_a' => $_POST['newquiz_question'.$x.'_answerA'],
-					'answer_b' => $_POST['newquiz_question'.$x.'_answerB'],
-					'answer_c' => $_POST['newquiz_question'.$x.'_answerC'],
-					'answer_d' => $_POST['newquiz_question'.$x.'_answerD'],
-					'correct_answer' => $_POST['correct_answer'.$x]);
+		for ($x=1; $x<=$_POST['num_questions']; $x++){
+			$question = Array(
+				'question_content' => $_POST['newquiz_question'.$x],
+				'answer_a' => $_POST['newquiz_question'.$x.'_answerA'],
+				'answer_b' => $_POST['newquiz_question'.$x.'_answerB'],
+				'answer_c' => $_POST['newquiz_question'.$x.'_answerC'],
+				'answer_d' => $_POST['newquiz_question'.$x.'_answerD'],
+				'correct_answer' => $_POST['correct_answer'.$x]);
 
-				#Get the next question increment value
-				$questionsquery = "SELECT AUTO_INCREMENT FROM information_schema.tables WHERE TABLE_NAME = 'questions'";
-				$questionsresult = DB::instance(DB_NAME)->query($questionsquery);
+			#Get the next question increment value
+			$questionsquery = "SELECT AUTO_INCREMENT FROM information_schema.tables WHERE TABLE_NAME = 'questions'";
+			$questionsresult = DB::instance(DB_NAME)->query($questionsquery);
 
-				$questionsarray = $questionsresult->fetch_assoc();
-				$nextquestionno=$questionsarray['AUTO_INCREMENT'];
+			$questionsarray = $questionsresult->fetch_assoc();
+			$nextquestionno=$questionsarray['AUTO_INCREMENT'];
 
-				#Insert the question
-				DB::instance(DB_NAME)->insert('questions', $question);
+			#Insert the question
+			DB::instance(DB_NAME)->insert('questions', $question);
 
-				#Build the associative table insert
-				$quiz_question = Array(
-					'quiz_number' => $nextquizno,
-					'question_number' => $nextquestionno);
+			#Build the associative table insert
+			$quiz_question = Array(
+				'quiz_number' => $nextquizno,
+				'question_number' => $nextquestionno);
 
-				#Insert the keys into the quiz question table
-				DB::instance(DB_NAME)->insert('quiz_questions', $quiz_question);
-
-			}
+			#Insert the keys into the quiz question table
+			DB::instance(DB_NAME)->insert('quiz_questions', $quiz_question);
   		}
 
 		echo "Quiz Added!";

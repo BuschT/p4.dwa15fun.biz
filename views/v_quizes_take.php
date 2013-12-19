@@ -1,5 +1,5 @@
 <?php
-if ($error == null){ ?>
+if(!isset($error)){ ?>
 	<form method='POST' action='/quizes/p_register_quiz' id="form_newpost">
 		<?php
 			$x = 1;
