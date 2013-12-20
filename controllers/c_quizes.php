@@ -62,7 +62,7 @@ class quizes_controller extends base_controller {
 	}
 
 	## Retrieve a list of quizes that have been taken by user
-	public function myquizes(){
+	public function myquizes($error=NULL){
 
 		$this->template->content = View::instance('v_quizes_report');
 		$this->template->title   = "Quiz History";
@@ -70,6 +70,10 @@ class quizes_controller extends base_controller {
 		# Get the list of unique quizes in the answered questions table
 		$checkquizhistoryquery = "SELECT DISTINCT user_id, quiz_number FROM users_quizes_questions_answers WHERE user_id = '".$this->user->user_id."'";
 		$quizcheck = DB::instance(DB_NAME)->select_rows($checkquizhistoryquery);
+
+		if ($quizcheck == null){
+			$error = "You haven't taken any quizes yet, so there's nothing to show here.";
+		}
 
 		$takenquizesarray = array();
 
@@ -84,6 +88,7 @@ class quizes_controller extends base_controller {
 			array_push($takenquizesarray, $tmp);
 		}
 		$this->template->content->takenquizes = $takenquizesarray;
+		$this->template->content->error = $error;
 
 		# Render template
 		echo $this->template;
@@ -97,7 +102,7 @@ class quizes_controller extends base_controller {
 		$this->template->title   = "View Quiz";
 
 		# See if they've already taken this quiz
-		$checkquizhistoryquery = "SELECT * FROM users_quizes_questions_answers WHERE user_id = '".$this->user->user_id."' AND quiz_number = '".$quizid."'";
+		$checkquizhistoryquery = "SELECT DISTINCT * FROM users_quizes_questions_answers WHERE user_id = '".$this->user->user_id."' AND quiz_number = '".$quizid."'";
 		$quizcheck = DB::instance(DB_NAME)->select_rows($checkquizhistoryquery);
 		if (count($quizcheck) > 0){
 			$error = "You've already taken this quiz. You cannot take it again. Check your score: <a href='/quizes/score/".$quizid."'>here</a>";
