@@ -153,7 +153,9 @@ class quizes_controller extends base_controller {
 		$nextquizno=$array['AUTO_INCREMENT'];
 
 		#Now Actually Add the quiz to the quiz table
-		$newquiz = Array('quiz_name' => $_POST['newquiz_name']);
+		$newquiz = Array('quiz_name' => $_POST['newquiz_name'],
+						 'quiz_description' =>$_POST['newquiz_description'],
+						 'creator_user_id' =>$this->user->user_id);
 		DB::instance(DB_NAME)->insert('quizes', $newquiz);
 
 		#Add all the questions to the questions table
@@ -185,12 +187,12 @@ class quizes_controller extends base_controller {
 			DB::instance(DB_NAME)->insert('quiz_questions', $quiz_question);
   		}
 
-		echo "Quiz Added!";
+		Router::redirect("/quizes");
 	}
 
 	public function index() {
 
-		$q = "Select * from quizes";
+		$q = "Select * from quizes ORDER BY quiz_number DESC";
 
 		# Run the query, store the results in the variable $posts
 		$quizes = DB::instance(DB_NAME)->select_rows($q);
@@ -199,8 +201,23 @@ class quizes_controller extends base_controller {
 		$this->template->content = View::instance('v_quizes_index');
 		$this->template->title   = "All Quizes";
 
+		$data = array();
+
+		# Get the user ids for the quizes
+		foreach($quizes as $tmpquiz){
+			$getuser = "SELECT first_name, last_name FROM users WHERE user_id = '".$tmpquiz['creator_user_id']."'";
+			$user = DB::instance(DB_NAME)->select_row($getuser);
+			$quizes_array = Array(
+				'quiz_number' => $tmpquiz['quiz_number'],
+				'quiz_name' => $tmpquiz['quiz_name'],
+				'quiz_description' => $tmpquiz['quiz_description'],
+				'quiz_creator_name' => $user['first_name']." ".$user['last_name']);
+			array_push($data, $quizes_array);
+		}
+
 		# Pass data to the View
-		$this->template->content->quizes = $quizes;
+		$this->template->content->quizes = $data;
+		#$this->template->
 
 		# Render the View
 		echo $this->template;
