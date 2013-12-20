@@ -13,6 +13,7 @@
 
     <script src="https://code.jquery.com/jquery.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/quiztastic.js"></script>
 
 	<!-- Controller Specific JS/CSS -->
 	<?php if(isset($client_files_head)) echo $client_files_head; ?>
@@ -33,13 +34,13 @@
 				<li><a href='/users/login'>Log in</a></li>
 			<?php endif; ?>
 		</ul>
-		<h3 class="text-muted">Quizes!!</h3>
+		<h3 class="text-muted">QuizTastic!</h3>
 	  </div>
 	  <div class="content_options">
 	  	<ul class="nav nav-pills">
-	  		<li id="nav_posts"><a href="/quizes">Available Quizes</a></li>
-	  		<li id="nav_posts_add"><a href="/quizes/add">Add A New Quiz</a></li>
-	  		<li id="nav_posts_users"><a href="/quizes/myquizes">My Scores</a></li>
+	  		<li id="nav_quizes"><a href="/quizes">Available Quizes</a></li>
+	  		<li id="nav_quizes_add"><a href="/quizes/add">Add A New Quiz</a></li>
+	  		<li id="nav_quizes_scores"><a href="/quizes/myquizes">My Scores</a></li>
 	  	</ul>
 	  </div>
 	  <div class="jumbotron">

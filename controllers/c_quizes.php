@@ -10,7 +10,7 @@ class quizes_controller extends base_controller {
 		}
 	}
 
-	public function score($quiznumber){
+	public function score($quiznumber, $error=NULL){
 		$this->template->content = View::instance('v_quizes_score');
 		$this->template->title   = "View Quiz Score";
 
@@ -19,6 +19,10 @@ class quizes_controller extends base_controller {
 
 		$query = "Select * from users_quizes_questions_answers WHERE user_id ='".$this->user->user_id."' AND quiz_number = '".$quiznumber."'";
 		$quizquestions = DB::instance(DB_NAME)->select_rows($query);
+
+		if ($quizquestions == null){
+			$error = "You did not take this quiz. Please go back and select a quiz you took to receive your scoring report.";
+		}
 
 		$quizquestionscount = count($quizquestions);
 		$numcorrect = 0;
@@ -46,6 +50,7 @@ class quizes_controller extends base_controller {
 		$this->template->content->numincorrect = $numincorrect;
 		$this->template->content->quiz_title = $quiztitle;
 		$this->template->content->questions = $data;
+		$this->template->content->error = $error;
 
 		# Render template
 		echo $this->template;
@@ -77,13 +82,13 @@ class quizes_controller extends base_controller {
 
 	}
 
-	public function take($quizid){
+	public function take($quizid, $error = NULL){
 		# Setup view
 		$this->template->content = View::instance('v_quizes_take');
 		$this->template->title   = "View Quiz";
 
 		# See if they've already taken this quize
-		$checkquizhistoryquery = "SELECT * FROM users_quizes_questions_answers WHERE user_id = '".$this->user->user_id."' AND quiz_number = '".$quizid."'";
+		$checkquizhistoryquery = "SELECT DISTINCT * FROM users_quizes_questions_answers WHERE user_id = '".$this->user->user_id."' AND quiz_number = '".$quizid."'";
 		$quizcheck = DB::instance(DB_NAME)->select_rows($checkquizhistoryquery);
 		if (count($quizcheck) > 0){
 			$this->template->content->error = "You've already taken this quiz. You cannot take it again. Check your score: <a href='/quizes/score/".$quizid."'>here</a>";
@@ -92,6 +97,10 @@ class quizes_controller extends base_controller {
 		$quizquery = "Select * from quizes WHERE quiz_number = '".$quizid."'";
 		# Run the query, store the results in the variable $posts
 		$quiz= DB::instance(DB_NAME)->select_row($quizquery);
+
+		if ($quiz == null){
+			$error = "Trying to take invalid test. Please go back to the tests index and choose a new test";
+		}
 
 		# Get the list of quiz questions
 		$quizquestionsquery = "Select * from quiz_questions WHERE quiz_number='".$quizid."'";
@@ -108,6 +117,7 @@ class quizes_controller extends base_controller {
 		# Pass data to the View
 		$this->template->content->quizinfo = $quiz;
 		$this->template->content->quizquestions = $questionsarray;
+		$this->template->content->error = $error;
 
 		# Render template
 		echo $this->template;
@@ -127,18 +137,11 @@ class quizes_controller extends base_controller {
 
 	public function p_register_quiz(){
 
-		#echo $this->user->user_id;
 		if (trim($_POST['quiz_number']) == false || $_POST['quiz_questions_count'] < 1){
-			echo "Problem...";
-			#Router::redirect("/quizes/take/error");
+			Router::redirect("/quizes/take/error");
 		}
 
-		#echo $_POST['quiz_questions_count'];
-
 		for ($x=1; $x<=$_POST['quiz_questions_count']; $x++){
-			#echo $this->user->user_id." and ".$_POST['user_answer'.$x];
-			#$newquiz = Array('quiz_name' => $_POST['newquiz_name']);
-			#DB::instance(DB_NAME)->insert('quizes', $newquiz);
 			$quizuserquestionanswer = Array(
 							'user_id' => $this->user->user_id,
 							'quiz_number' => $_POST['quiz_number'],
@@ -146,6 +149,7 @@ class quizes_controller extends base_controller {
 							'user_answer' => $_POST['user_answer'.$x]);
 			DB::instance(DB_NAME)->insert('users_quizes_questions_answers', $quizuserquestionanswer);
 		}
+
 		Router::redirect("/quizes/score/".$_POST['quiz_number']);
 	}
 

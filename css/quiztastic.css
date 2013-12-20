@@ -11,7 +11,7 @@
 	float: left;
 }
 
-.quiz, #your_score, .quiz_question {
+.quiz, #your_score, .quiz_question_answer, .quiz_question {
 	display: block;
 	margin-bottom: 30px;
 	padding-left: 15px;
@@ -23,6 +23,10 @@
 	padding-bottom: 15px;
 	border-radius: 15px;
 	width: 100%;
+}
+
+#add_quiz_instructions {
+	font-size: 16px;
 }
 
 .quiz_answer {

@@ -7,4 +7,4 @@
 } else {
 	?>You don't have any quizes in the system. Try adding some quizes.<?php
 }?>
-<div id="nav_hint_latestactivity"></div>
+<div id="nav_hint_quiz_take"></div>
