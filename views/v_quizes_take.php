@@ -5,7 +5,7 @@ if(!isset($error)){ ?>
 				$x = 1;
 				foreach($quizquestions as $quizquestion): ?>
 					<div class="quiz_question">
-						<input type="hidden" name="question_number" value="<?=$quizquestion['question_no']?>" />
+						<input type="hidden" name="question_number<?=$x?>" value="<?=$quizquestion['question_no']?>" />
 						<div class="quiz_question"><?=$quizquestion['question_content']?>?</div>
 						<div class="quiz_answer">
 							<input type="radio" name="user_answer<?=$x?>" value="A" checked>A: <?=$quizquestion['answer_a']?><br />

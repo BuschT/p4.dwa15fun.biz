@@ -152,17 +152,15 @@ class quizes_controller extends base_controller {
 	# Register a result of a user's quiz to the server
 	public function p_register_quiz(){
 
-		if (trim($_POST['quiz_number']) == false || $_POST['quiz_questions_count'] < 1){
-			Router::redirect("/quizes/take/error");
-		}
-
-		for ($x=1; $x<=$_POST['quiz_questions_count']; $x++){
-			$quizuserquestionanswer = Array(
-							'user_id' => $this->user->user_id,
-							'quiz_number' => $_POST['quiz_number'],
-							'question_number' => $_POST['question_number'],
-							'user_answer' => $_POST['user_answer'.$x]);
-			DB::instance(DB_NAME)->insert('users_quizes_questions_answers', $quizuserquestionanswer);
+		for ($x=1; $x<=5; $x++){
+			if ($_POST['user_answer'.$x] != null){
+				$quizuserquestionanswer = Array(
+								'user_id' => $this->user->user_id,
+								'quiz_number' => $_POST['quiz_number'],
+								'question_number' => $_POST['question_number'.$x],
+								'user_answer' => $_POST['user_answer'.$x]);
+				DB::instance(DB_NAME)->insert('users_quizes_questions_answers', $quizuserquestionanswer);
+			}
 		}
 
 		Router::redirect("/quizes/score/".$_POST['quiz_number']);
@@ -186,32 +184,34 @@ class quizes_controller extends base_controller {
 		DB::instance(DB_NAME)->insert('quizes', $newquiz);
 
 		#Add all the questions to the questions table
-		for ($x=1; $x<=$_POST['num_questions']; $x++){
-			$question = Array(
-				'question_content' => $_POST['newquiz_question'.$x],
-				'answer_a' => $_POST['newquiz_question'.$x.'_answerA'],
-				'answer_b' => $_POST['newquiz_question'.$x.'_answerB'],
-				'answer_c' => $_POST['newquiz_question'.$x.'_answerC'],
-				'answer_d' => $_POST['newquiz_question'.$x.'_answerD'],
-				'correct_answer' => $_POST['correct_answer'.$x]);
+		for ($x=1; $x<=5; $x++){
+			if ($_POST['newquiz_question'.$x] != null){
+				$question = Array(
+					'question_content' => $_POST['newquiz_question'.$x],
+					'answer_a' => $_POST['newquiz_question'.$x.'_answerA'],
+					'answer_b' => $_POST['newquiz_question'.$x.'_answerB'],
+					'answer_c' => $_POST['newquiz_question'.$x.'_answerC'],
+					'answer_d' => $_POST['newquiz_question'.$x.'_answerD'],
+					'correct_answer' => $_POST['correct_answer'.$x]);
 
-			#Get the next question increment value
-			$questionsquery = "SELECT AUTO_INCREMENT FROM information_schema.tables WHERE TABLE_NAME = 'questions'";
-			$questionsresult = DB::instance(DB_NAME)->query($questionsquery);
+				#Get the next question increment value
+				$questionsquery = "SELECT AUTO_INCREMENT FROM information_schema.tables WHERE TABLE_NAME = 'questions'";
+				$questionsresult = DB::instance(DB_NAME)->query($questionsquery);
 
-			$questionsarray = $questionsresult->fetch_assoc();
-			$nextquestionno=$questionsarray['AUTO_INCREMENT'];
+				$questionsarray = $questionsresult->fetch_assoc();
+				$nextquestionno=$questionsarray['AUTO_INCREMENT'];
 
-			#Insert the question
-			DB::instance(DB_NAME)->insert('questions', $question);
+				#Insert the question
+				DB::instance(DB_NAME)->insert('questions', $question);
 
-			#Build the associative table insert
-			$quiz_question = Array(
-				'quiz_number' => $nextquizno,
-				'question_number' => $nextquestionno);
+				#Build the associative table insert
+				$quiz_question = Array(
+					'quiz_number' => $nextquizno,
+					'question_number' => $nextquestionno);
 
-			#Insert the keys into the quiz question table
-			DB::instance(DB_NAME)->insert('quiz_questions', $quiz_question);
+				#Insert the keys into the quiz question table
+				DB::instance(DB_NAME)->insert('quiz_questions', $quiz_question);
+			}
   		}
 
 		Router::redirect("/quizes");
