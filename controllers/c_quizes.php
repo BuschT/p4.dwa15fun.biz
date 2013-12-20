@@ -21,10 +21,19 @@ class quizes_controller extends base_controller {
 		$numcorrect = 0;
 		$numincorrect = 0;
 
+		$data = array();
+
 		foreach($quizquestions as $question){
-			$queryquestioninfo = "Select correct_answer FROM questions WHERE question_no = '".$question['question_number']."'";
-			$correctanswer = DB::instance(DB_NAME)->select_field($queryquestioninfo);
-			if ($question['user_answer'] != $correctanswer){
+			$queryquestioninfo = "Select * FROM questions WHERE question_no = '".$question['question_number']."'";
+			#$queryquestioninfo = "Select correct_answer FROM questions WHERE question_no = '".$question['question_number']."'";
+			$questioninfo = DB::instance(DB_NAME)->select_row($queryquestioninfo);
+
+			$tmp = Array(
+					'question' => $questioninfo,
+					'user_answer' => $question['user_answer']);
+			array_push($data, $tmp);
+
+			if ($question['user_answer'] != $questioninfo['correct_answer']){
 				$numincorrect = $numincorrect+1;
 			} else {
 				$numcorrect = $numcorrect+1;
@@ -33,6 +42,7 @@ class quizes_controller extends base_controller {
 
 		$this->template->content->numcorrect = $numcorrect;
 		$this->template->content->numincorrect = $numincorrect;
+		$this->template->content->questions = $data;
 
 		# Render template
 		echo $this->template;
