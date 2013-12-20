@@ -7,13 +7,13 @@
 
 	<label for='newquiz_question1'>Question #1:</label>
 	<input name='newquiz_question1' maxlength='100' id='newquiz_question1' class='quizinput'/>
-	<label for='newquiz_question1_answerA'>Answer A:</label>
+	<label for='newquiz_question1A'>Answer A:</label>
 	<input name='newquiz_question1_answerA' maxlength='50' id='newquiz_question1A' class='quizinput'/>
-	<label for='newquiz_question1_answerB'>Answer B:</label>
+	<label for='newquiz_question1B'>Answer B:</label>
 	<input name='newquiz_question1_answerB' maxlength='50' id='newquiz_question1B' class='quizinput'/>
-	<label for='newquiz_question1_answerC'>Answer C:</label>
+	<label for='newquiz_question1C'>Answer C:</label>
 	<input name='newquiz_question1_answerC' maxlength='50' id='newquiz_question1C' class='quizinput'/>
-	<label for='newquiz_question1_answerD'>Answer D:</label>
+	<label for='newquiz_question1A'>Answer D:</label>
 	<input name='newquiz_question1_answerD' maxlength='50' id='newquiz_question1D' class='quizinput'/>
 	<br /><br />
 	<label for='correct_answer1'>Correct Answer:</label>
@@ -25,13 +25,13 @@
 	<br />
 	<label for='newquiz_question2'>Question #2:</label>
 	<input name='newquiz_question2' maxlength='100' id='newquiz_question2' class='quizinput'/>
-	<label for='newquiz_question2_answerA'>Answer A:</label>
+	<label for='newquiz_question2A'>Answer A:</label>
 	<input name='newquiz_question2_answerA' maxlength='50' id='newquiz_question2A' class='quizinput'/>
-	<label for='newquiz_question2_answerB'>Answer B:</label>
+	<label for='newquiz_question2B'>Answer B:</label>
 	<input name='newquiz_question2_answerB' maxlength='50' id='newquiz_question2B' class='quizinput'/>
-	<label for='newquiz_question2_answerC'>Answer C:</label>
+	<label for='newquiz_question2C'>Answer C:</label>
 	<input name='newquiz_question2_answerC' maxlength='50' id='newquiz_question2C' class='quizinput'/>
-	<label for='newquiz_question2_answerD'>Answer D:</label>
+	<label for='newquiz_question2D'>Answer D:</label>
 	<input name='newquiz_question2_answerD' maxlength='50' id='newquiz_question2D' class='quizinput'/>
 	<br /><br />
 	<label for='correct_answer2'>Correct Answer:</label>
@@ -44,13 +44,13 @@
 	<br />
 	<label for='newquiz_question3'>Question #3:</label>
 	<input name='newquiz_question3' maxlength='100' id='newquiz_question3' class='quizinput'/>
-	<label for='newquiz_question3_answerA'>Answer A:</label>
+	<label for='newquiz_question3A'>Answer A:</label>
 	<input name='newquiz_question3_answerA' maxlength='50' id='newquiz_question3A' class='quizinput'/>
-	<label for='newquiz_question3_answerB'>Answer B:</label>
+	<label for='newquiz_question3B'>Answer B:</label>
 	<input name='newquiz_question3_answerB' maxlength='50' id='newquiz_question3B' class='quizinput'/>
-	<label for='newquiz_question3_answerC'>Answer C:</label>
+	<label for='newquiz_question3C'>Answer C:</label>
 	<input name='newquiz_question3_answerC' maxlength='50' id='newquiz_question3C' class='quizinput'/>
-	<label for='newquiz_question3_answerD'>Answer D:</label>
+	<label for='newquiz_question3D'>Answer D:</label>
 	<input name='newquiz_question3_answerD' maxlength='50' id='newquiz_question3D' class='quizinput'/>
 	<br /><br />
 	<label for='correct_answer3'>Correct Answer:</label>
@@ -62,13 +62,13 @@
 	<br />
 	<label for='newquiz_question4'>Question #4:</label>
 	<input name='newquiz_question4' maxlength='100' id='newquiz_question4' class='quizinput'/>
-	<label for='newquiz_question4_answerA'>Answer A:</label>
+	<label for='newquiz_question4A'>Answer A:</label>
 	<input name='newquiz_question4_answerA' maxlength='50' id='newquiz_question4A' class='quizinput'/>
-	<label for='newquiz_question4_answerB'>Answer B:</label>
+	<label for='newquiz_question4B'>Answer B:</label>
 	<input name='newquiz_question4_answerB' maxlength='50' id='newquiz_question4B' class='quizinput'/>
-	<label for='newquiz_question4_answerC'>Answer C:</label>
+	<label for='newquiz_question4C'>Answer C:</label>
 	<input name='newquiz_question4_answerC' maxlength='50' id='newquiz_question4C' class='quizinput'/>
-	<label for='newquiz_question4_answerD'>Answer D:</label>
+	<label for='newquiz_question4D'>Answer D:</label>
 	<input name='newquiz_question4_answerD' maxlength='50' id='newquiz_question4D' class='quizinput'/>
 	<br /><br />
 	<label for='correct_answer4'>Correct Answer:</label>
@@ -80,13 +80,13 @@
 	<br />
 	<label for='newquiz_question5'>Question #5:</label>
 	<input name='newquiz_question5' maxlength='100' id='newquiz_question5' class='quizinput'/>
-	<label for='newquiz_question5_answerA'>Answer A:</label>
+	<label for='newquiz_question5A'>Answer A:</label>
 	<input name='newquiz_question5_answerA' maxlength='50' id='newquiz_question5A' class='quizinput'/>
-	<label for='newquiz_question5_answeB'>Answer B:</label>
+	<label for='newquiz_question5B'>Answer B:</label>
 	<input name='newquiz_question5_answerB' maxlength='50' id='newquiz_question5B' class='quizinput'/>
-	<label for='newquiz_question5_answerC'>Answer C:</label>
+	<label for='newquiz_question5C'>Answer C:</label>
 	<input name='newquiz_question5_answerC' maxlength='50' id='newquiz_question5C' class='quizinput'/>
-	<label for='newquiz_question5_answerD'>Answer D:</label>
+	<label for='newquiz_question5D'>Answer D:</label>
 	<input name='newquiz_question5_answerD' maxlength='50' id='newquiz_question5D' class='quizinput'/>
 	<br /><br />
     <label for='correct_answer5'>Correct Answer:</label>
