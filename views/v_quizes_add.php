@@ -1,6 +1,6 @@
 <div id="add_quiz_instructions">Enter your quiz information into the fields below. You may have up to 5 questions in the quiz. You do not have to fill out all of the questions. If you fill in the question box for each question, you must provide 4 answers and select the proper answer.</div><br />
 <form method='POST' action='/quizes/p_add' id="form_newquiz">
-	<label for='newquiz_title'>Quiz Name:</label>
+	<label for='newquiz_name'>Quiz Name:</label>
 	<input name='newquiz_name' maxlength='100' id='newquiz_name' class='quizinput'/><br />
 	<label for='newquiz_title'>Quiz Description:</label>
 	<input name='newquiz_description' maxlength='100' id='newquiz_description' class='quizinput'/><br /><br />
@@ -28,7 +28,7 @@
 	<label for='newquiz_content'>Answer A:</label>
 	<input name='newquiz_question2_answerA' maxlength='50' id='newquiz_question2A' class='quizinput'/>
 	<label for='newquiz_content'>Answer B:</label>
-	<input name='newquiz_question2_answerB' maxlength='50' id='newquiz_question2B'class='quizinput'/>
+	<input name='newquiz_question2_answerB' maxlength='50' id='newquiz_question2B' class='quizinput'/>
 	<label for='newquiz_content'>Answer C:</label>
 	<input name='newquiz_question2_answerC' maxlength='50' id='newquiz_question2C' class='quizinput'/>
 	<label for='newquiz_content'>Answer D:</label>
