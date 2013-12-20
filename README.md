@@ -1,7 +1,5 @@
-p4.dwa15fun.biz
+p4.dwa15fun.biz -- QuizTastic!
 ===============
-
-In the root of your P4 app, include a file called README.md and include the following:
 
 QuizTastic! is a basic testing/trivia system designed mainly for use on private systems such as company Intranets or within groups of friends.
 It can be used to test serious subject matter or just as a fun brain teaser. The way it is currently designed allows for users to sign up and see all tests other users have created. 
