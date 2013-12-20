@@ -10,13 +10,17 @@ class quizes_controller extends base_controller {
 		}
 	}
 
+	## Get the scoring report for a quiz
 	public function score($quiznumber, $error=NULL){
+
 		$this->template->content = View::instance('v_quizes_score');
 		$this->template->title   = "View Quiz Score";
 
+		## Get the quiz information
 		$quiztitlequery = "Select quiz_name FROM quizes WHERE quiz_number = '".$quiznumber."'";
 		$quiztitle = DB::instance(DB_NAME)->select_field($quiztitlequery);
 
+		## Get all the questions for that quiz the user answered
 		$query = "Select * from users_quizes_questions_answers WHERE user_id ='".$this->user->user_id."' AND quiz_number = '".$quiznumber."'";
 		$quizquestions = DB::instance(DB_NAME)->select_rows($query);
 
@@ -30,6 +34,7 @@ class quizes_controller extends base_controller {
 
 		$data = array();
 
+		## Loop all the questions and figure out what they got right and wrong. Build the array to pass to the view that has question info.
 		foreach($quizquestions as $question){
 			$queryquestioninfo = "Select * FROM questions WHERE question_no = '".$question['question_number']."'";
 			$questioninfo = DB::instance(DB_NAME)->select_row($queryquestioninfo);
@@ -56,16 +61,19 @@ class quizes_controller extends base_controller {
 		echo $this->template;
 	}
 
+	## Retrieve a list of quizes that have been taken by user
 	public function myquizes(){
 
 		$this->template->content = View::instance('v_quizes_report');
 		$this->template->title   = "Quiz History";
 
+		# Get the list of unique quizes in the answered questions table
 		$checkquizhistoryquery = "SELECT DISTINCT user_id, quiz_number FROM users_quizes_questions_answers WHERE user_id = '".$this->user->user_id."'";
 		$quizcheck = DB::instance(DB_NAME)->select_rows($checkquizhistoryquery);
 
 		$takenquizesarray = array();
 
+		# Build the array for the view
 		foreach($quizcheck as $quiztaken){
 			$getquizinfoquery = "SELECT quiz_name from quizes WHERE quiz_number = '".$quiztaken['quiz_number']."'";
 			$quizname = DB::instance(DB_NAME)->select_field($getquizinfoquery);
@@ -82,20 +90,21 @@ class quizes_controller extends base_controller {
 
 	}
 
+	# Allow the user to take a quiz
 	public function take($quizid, $error = NULL){
 		# Setup view
 		$this->template->content = View::instance('v_quizes_take');
 		$this->template->title   = "View Quiz";
 
-		# See if they've already taken this quize
-		$checkquizhistoryquery = "SELECT DISTINCT * FROM users_quizes_questions_answers WHERE user_id = '".$this->user->user_id."' AND quiz_number = '".$quizid."'";
+		# See if they've already taken this quiz
+		$checkquizhistoryquery = "SELECT * FROM users_quizes_questions_answers WHERE user_id = '".$this->user->user_id."' AND quiz_number = '".$quizid."'";
 		$quizcheck = DB::instance(DB_NAME)->select_rows($checkquizhistoryquery);
 		if (count($quizcheck) > 0){
-			$this->template->content->error = "You've already taken this quiz. You cannot take it again. Check your score: <a href='/quizes/score/".$quizid."'>here</a>";
+			$error = "You've already taken this quiz. You cannot take it again. Check your score: <a href='/quizes/score/".$quizid."'>here</a>";
 		}
 
+		# Make sure the test exists
 		$quizquery = "Select * from quizes WHERE quiz_number = '".$quizid."'";
-		# Run the query, store the results in the variable $posts
 		$quiz= DB::instance(DB_NAME)->select_row($quizquery);
 
 		if ($quiz == null){
@@ -135,6 +144,7 @@ class quizes_controller extends base_controller {
 
 	}
 
+	# Register a result of a user's quiz to the server
 	public function p_register_quiz(){
 
 		if (trim($_POST['quiz_number']) == false || $_POST['quiz_questions_count'] < 1){
@@ -156,11 +166,6 @@ class quizes_controller extends base_controller {
 
 
 	public function p_add() {
-
-		# Make sure there's at least one question
-		if (trim($_POST['newquiz_question1']) == false){
-			Router::redirect("/posts/add/error");
-		}
 
 		#Determine the next quiz number
 		$query = "SELECT AUTO_INCREMENT FROM information_schema.tables WHERE TABLE_NAME = 'quizes'";
