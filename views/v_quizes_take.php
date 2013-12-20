@@ -14,7 +14,7 @@ if(!isset($error)){ ?>
 							<input type="radio" name="user_answer<?=$x?>" value="B">B: <?=$quizquestion['answer_b']?><br />
 						</div><br />
 						<div class="quiz_answer">
-							<input type="radio" name="user_answer<?=$x?>" value="C">C: <?=$quizquestion['answer_d']?><br />
+							<input type="radio" name="user_answer<?=$x?>" value="C">C: <?=$quizquestion['answer_c']?><br />
 						</div><br />
 							<div class="quiz_answer">
 							<input type="radio" name="user_answer<?=$x?>" value="D">D: <?=$quizquestion['answer_d']?><br />
