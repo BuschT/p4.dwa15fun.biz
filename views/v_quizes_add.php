@@ -16,7 +16,7 @@
 	<label for='newquiz_question1A'>Answer D:</label>
 	<input name='newquiz_question1_answerD' maxlength='50' id='newquiz_question1D' class='quizinput'/>
 	<br /><br />
-	<label for='correct_answer1'>Correct Answer:</label>
+	<label>Correct Answer:</label>
 	A<input type="radio" name="correct_answer1" value="A" checked>
 	B<input type="radio" name="correct_answer1" value="B">
 	C<input type="radio" name="correct_answer1" value="C">
@@ -34,7 +34,7 @@
 	<label for='newquiz_question2D'>Answer D:</label>
 	<input name='newquiz_question2_answerD' maxlength='50' id='newquiz_question2D' class='quizinput'/>
 	<br /><br />
-	<label for='correct_answer2'>Correct Answer:</label>
+	<label>Correct Answer:</label>
 	A<input type="radio" name="correct_answer2" value="A" checked>
 	B<input type="radio" name="correct_answer2" value="B">
 	C<input type="radio" name="correct_answer2" value="C">
@@ -53,7 +53,7 @@
 	<label for='newquiz_question3D'>Answer D:</label>
 	<input name='newquiz_question3_answerD' maxlength='50' id='newquiz_question3D' class='quizinput'/>
 	<br /><br />
-	<label for='correct_answer3'>Correct Answer:</label>
+	<label>Correct Answer:</label>
 	A<input type="radio" name="correct_answer3" value="A" checked>
 	B<input type="radio" name="correct_answer3" value="B">
 	C<input type="radio" name="correct_answer3" value="C">
@@ -71,7 +71,7 @@
 	<label for='newquiz_question4D'>Answer D:</label>
 	<input name='newquiz_question4_answerD' maxlength='50' id='newquiz_question4D' class='quizinput'/>
 	<br /><br />
-	<label for='correct_answer4'>Correct Answer:</label>
+	<label>Correct Answer:</label>
 	A<input type="radio" name="correct_answer4" value="A" checked>
 	B<input type="radio" name="correct_answer4" value="B">
 	C<input type="radio" name="correct_answer4" value="C">
@@ -89,7 +89,7 @@
 	<label for='newquiz_question5D'>Answer D:</label>
 	<input name='newquiz_question5_answerD' maxlength='50' id='newquiz_question5D' class='quizinput'/>
 	<br /><br />
-    <label for='correct_answer5'>Correct Answer:</label>
+    <label>Correct Answer:</label>
 	A<input type="radio" name="correct_answer5" value="A" checked>
 	B<input type="radio" name="correct_answer5" value="B">
 	C<input type="radio" name="correct_answer5" value="C">
