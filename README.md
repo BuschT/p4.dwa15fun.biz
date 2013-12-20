@@ -19,5 +19,9 @@ Start by looking at some tests others have created, or create one of your own.
 Javascript is used to manage user input in the fields. The form validation is all found in quiztastic.js. There was no other critical need for Javascript here; it is mainly used to prevent junk
 getting into the database. There is also various error handling conditions in the PHP layer.
 
+If you want to get started without creating an account, sign in as:
+
+mjones@aol.com
+Jones123
 
 Have Fun! 
