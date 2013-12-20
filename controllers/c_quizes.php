@@ -14,6 +14,9 @@ class quizes_controller extends base_controller {
 		$this->template->content = View::instance('v_quizes_score');
 		$this->template->title   = "View Quiz Score";
 
+		$quiztitlequery = "Select quiz_name FROM quizes WHERE quiz_number = '".$quiznumber."'";
+		$quiztitle = DB::instance(DB_NAME)->select_field($quiztitlequery);
+
 		$query = "Select * from users_quizes_questions_answers WHERE user_id ='".$this->user->user_id."' AND quiz_number = '".$quiznumber."'";
 		$quizquestions = DB::instance(DB_NAME)->select_rows($query);
 
@@ -25,7 +28,6 @@ class quizes_controller extends base_controller {
 
 		foreach($quizquestions as $question){
 			$queryquestioninfo = "Select * FROM questions WHERE question_no = '".$question['question_number']."'";
-			#$queryquestioninfo = "Select correct_answer FROM questions WHERE question_no = '".$question['question_number']."'";
 			$questioninfo = DB::instance(DB_NAME)->select_row($queryquestioninfo);
 
 			$tmp = Array(
@@ -42,6 +44,7 @@ class quizes_controller extends base_controller {
 
 		$this->template->content->numcorrect = $numcorrect;
 		$this->template->content->numincorrect = $numincorrect;
+		$this->template->content->quiz_title = $quiztitle;
 		$this->template->content->questions = $data;
 
 		# Render template

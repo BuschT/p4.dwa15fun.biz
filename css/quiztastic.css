@@ -7,7 +7,11 @@
 	width: 60%;
 }
 
-.quiz {
+#score_header{
+	float: left;
+}
+
+.quiz, #your_score, .quiz_question {
 	display: block;
 	margin-bottom: 30px;
 	padding-left: 15px;
@@ -19,6 +23,10 @@
 	padding-bottom: 15px;
 	border-radius: 15px;
 	width: 100%;
+}
+
+.quiz_answer {
+	float: left;
 }
 
 .quiz_url {
